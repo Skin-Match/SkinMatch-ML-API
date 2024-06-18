@@ -23,7 +23,7 @@ ML API: https://ml-api-dczyyawmja-et.a.run.app
   
 * Request Header
     * Content-Type : application/json
-    * Authorization : Bearer <token>
+    * Authorization : Bearer "token"
 
 * Response:
 ```json
@@ -54,7 +54,7 @@ ML API: https://ml-api-dczyyawmja-et.a.run.app
 
 * Request Header
     * Content-Type : application/json
-    * Authorization : Bearer <token>
+    * Authorization : Bearer "token"
 
 * Response:
 ```json
@@ -123,7 +123,7 @@ ML API: https://ml-api-dczyyawmja-et.a.run.app
 * Request Body: 
     * form-data
         * key : file - File
-        * Value : <image>
+        * Value : "image"
 * Response:
 ```json
 {
