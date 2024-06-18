@@ -68,7 +68,8 @@ def verify_token(token):
 #@app.route('/check_compatibility', methods=['POST'])
 @compatibility_blueprint.route('/check_compatibility', methods=['POST'])
 def check_compatibility_api():
-    gcs_uri = request.json.get('image_uri', 'gs://cc-c241-ps246.appspot.com/images-OCR/images.jpg')
+    #data = request.get_json(silent=True) or {}
+    gcs_uri = data.get('image_uri', 'gs://cc-c241-ps246.appspot.com/images-OCR/image.jpg')
     auth_header = request.headers.get('Authorization', '')
 
     if not auth_header or 'Bearer ' not in auth_header:
@@ -93,6 +94,5 @@ def check_compatibility_api():
     result = check_compatibility(ingredients_to_check, skin_type, data, avoided_ingredients)
 
     return jsonify({'result': result})
-
 #if __name__ == '__main__':
    # app.run(debug=True)
