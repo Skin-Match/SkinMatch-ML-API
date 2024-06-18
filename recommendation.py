@@ -1,12 +1,13 @@
-from flask import Flask, request, jsonify
+from flask import Blueprint, request, jsonify
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-app = Flask(__name__)
+# Create a Blueprint for recommendations
+recommendations_blueprint = Blueprint('recommendations', __name__)
 
 # Load the dataset
-data = pd.read_csv('cosmetics.csv')
+data = pd.read_csv('./cosmetics.csv')
 
 # Prepare the TF-IDF vectorizer and compute cosine similarity matrix
 tfidf = TfidfVectorizer(stop_words='english')
@@ -36,12 +37,9 @@ def get_recommendations(product_name, cosine_sim=cosine_sim):
     # Return the top 10 most similar product names
     return data.iloc[product_indices]['Name'].tolist()
 
-# Define the API endpoint
-@app.route('/recommendationz', methods=['POST'])
+# Define the API endpoint within the blueprint
+@recommendations_blueprint.route('/product-rec-byname', methods=['POST'])
 def recommend():
     product_name = request.json.get('product_name')
     recommendations = get_recommendations(product_name)
     return jsonify(recommendations)
-
-if __name__ == '__main__':
-    app.run(debug=True)
